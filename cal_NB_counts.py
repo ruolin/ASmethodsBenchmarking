@@ -25,7 +25,7 @@ parser.add_argument("-g1", "--group1", nargs='+', type=argparse.FileType('r'), r
 parser.add_argument("-g2", "--group2", nargs='+', type=argparse.FileType('r'), required=True, help='Second group sam files separated by space.')
 parser.add_argument("-n", "--num-reps", type=int, default = 3, dest='nreps',
 	help = "Number of replicates. Default is 3." )
-parser.add_argument("-l", "--num-target-gene", type=int, default = 3, dest='ntarg',
+parser.add_argument("-l", "--num-target-gene", type=int, default = 2000, dest='ntarg',
 	help = "Number of AS genes. Default is 2000. ")
 parser.add_argument("-m", "--mode", choices = ['AS-genes', 'all-genes'], default = 'AS-genes',
 	help = "Choose between AS-genes or all-genes: AS-genes simulates annotated AS genes only. all_genes simulates all genes in annotation.")
