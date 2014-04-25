@@ -1,4 +1,4 @@
-####Prerequisites:
+#Prerequisites:
 1. Install python 2.7+ but not 3.0+.
 2. Install rpy2 (python library).
 3. Install scipy (python library).
@@ -6,7 +6,7 @@
 5. Install Flux Simulator. http://sammeth.net/confluence/display/SIM/2+-+Download
 6. Copy myPara.par to the Flux Simulator root directory.
 
-#Step1: generate gene-level NB counts. This scripts accepts two group of samples. Recommend for using real data.
+####Step1: generate gene-level NB counts. This scripts accepts two group of samples. Recommend for using real data.
 usage: cal_NB_counts.py [-h] <annotation.gff3> -g1 control_1.sam control_2.sam -g2 treat_1.sam treat_2.sam [-n 3] [-l 2000] [-m AS-genes]
 
 Generated negative binomial relationship gene-level read counts for a synthetic groups based on real experimental data
@@ -26,12 +26,12 @@ optional arguments:
                         simulates annotated AS genes only. all_genes simulates
                         all genes in annotation.
 
-##output
+####output from setp 1
 group1.nbcounts and group2.nbcounts are simulated NB fragment counts.
 group1.rawcounts and group2.rawcounts are fragement counts for the input datas
 AS_genes.list contains the simulated AS genes.
 
-#Step2: Simulate differentail splicing. 
+####Step2: Simulate differentail splicing. 
 Usage: python generate_rnaseq.py [options] <group1.nbcounts> <AS_genes_list> <path_to_myPara.par> <out_prefix>
 
 Options:
