@@ -13,31 +13,17 @@ Generated negative binomial relationship gene-level read counts for a synthetic 
 
 optional arguments:
 
-  						-h, --help            show this help message and exit
+	-h, --help            show this help message and exit
 
-  						-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]
+	-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]			First group sam files separated by space.
 
-                        First group sam files separated by space.
+	-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]			Second group sam files separated by space.
 
-  						-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]
+	-n NREPS, --num-reps NREPS			Number of replicates. Default is 3.
 
-                        Second group sam files separated by space.
+	-l NTARG, --num-target-gene NTARG			Number of AS genes. Default is 2000.
 
-  						-n NREPS, --num-reps NREPS
-
-                        Number of replicates. Default is 3.
-
-  						-l NTARG, --num-target-gene NTARG
-
-                        Number of AS genes. Default is 2000.
-
-  						-m {AS-genes,all-genes}, --mode {AS-genes,all-genes}
-
-                        Choose between AS-genes or all-genes: AS-genes
-
-                        simulates annotated AS genes only. all_genes simulates
-
-                        all genes in annotation.
+	-m {AS-genes,all-genes}, --mode {AS-genes,all-genes}			Choose between AS-genes or all-genes: AS-genes simulates annotated AS genes only; all_genes simulates all genes in annotation.
 
 ####Output from setp 1
 group1.nbcounts and group2.nbcounts: simulated NB fragment counts.
@@ -49,18 +35,13 @@ AS_genes.list contains the simulated AS genes.
 ####Step2: Simulate differentail splicing. 
 Usage: python generate_rnaseq.py [options] <group1.nbcounts> <AS_genes_list> <path_to_myPara.par> <out_prefix>
 
-
 Options:
 
-  -h, --help            show this help message and exit
+	-h, --help            show this help message and exit
 
-  -p PALT, --percent-alt=PALT
+	-p PALT, --percent-alt=PALT			The percentage of signal coming from alternate splice forms. Default is 0.2
 
-                         The percentage of signal coming from alternate splice forms. Default is 0.2
-
-  -c COVERAGE, --mean-base-coverage=COVERAGE
-
-                         Mean base coverage. Default is 25
+	-c COVERAGE, --mean-base-coverage=COVERAGE			Mean base coverage. Default is 25
 
 Copy right: Ruolin Liu, ISU
 
