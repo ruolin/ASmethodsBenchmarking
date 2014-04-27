@@ -1,4 +1,4 @@
-#Prerequisites:
+###Prerequisites:
 1. Install python 2.7+ but not 3.0+.
 2. Install rpy2 (python library).
 3. Install scipy (python library).
@@ -13,25 +13,25 @@ Generated negative binomial relationship gene-level read counts for a synthetic 
 
 optional arguments:
 
-  -h, --help            show this help message and exit
+  						-h, --help            show this help message and exit
 
-  -g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]
+  						-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]
 
                         First group sam files separated by space.
 
-  -g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]
+  						-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]
 
                         Second group sam files separated by space.
 
-  -n NREPS, --num-reps NREPS
+  						-n NREPS, --num-reps NREPS
 
                         Number of replicates. Default is 3.
 
-  -l NTARG, --num-target-gene NTARG
+  						-l NTARG, --num-target-gene NTARG
 
                         Number of AS genes. Default is 2000.
 
-  -m {AS-genes,all-genes}, --mode {AS-genes,all-genes}
+  						-m {AS-genes,all-genes}, --mode {AS-genes,all-genes}
 
                         Choose between AS-genes or all-genes: AS-genes
 
