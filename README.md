@@ -36,7 +36,7 @@ AS-genes.list contains the simulated AS genes.
 
 ####Step2: Simulate differentail alternative splicing for each of the two groups individually. 
 
-Usage: python generate_rnaseq.py 	groupx.nbcounts 	AS-genes.list 	path-to-myPara.par 	out-prefix 	-p 0.2	-c 25
+Usage: python generate_rnaseq.py	groupx.nbcounts 	AS-genes.list 	path-to-myPara.par 	out-prefix 	-p 0.2	-c 25
 
 Options:
 
