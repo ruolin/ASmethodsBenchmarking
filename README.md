@@ -21,11 +21,11 @@ Options:
 
 	-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]	**required**		Second group sam files separated by space.
 
-	-n NREPS, --num-reps NREPS			Number of replicates. Default is 3.
+	-n NREPS, --num-reps NREPS		**optional**		Number of replicates. Default is 3.
 
-	-l NTARG, --num-target-gene NTARG		Number of AS genes. Default is 2000.
+	-l NTARG, --num-target-gene NTARG		**optional**		Number of AS genes. Default is 2000.
 
-	-m {AS-genes,all-genes}, --mode {AS-genes,all-genes}			Choose between AS-genes or all-genes: AS-genes simulates annotated AS genes only; all_genes simulates all genes in annotation.
+	-m {AS-genes,all-genes}, --mode {AS-genes,all-genes}		**optional**			Choose between AS-genes or all-genes: AS-genes simulates annotated AS genes only; all_genes simulates all genes in annotation.
 
 ####Output from setp 1
 group1.nbcounts and group2.nbcounts: simulated NB fragment counts.
@@ -41,14 +41,13 @@ Usage: python generate_rnaseq.py 	groupx.nbcounts 	AS-genes.list 	path-to-myPara
 Options:
 
 	-h, --help            show this help message and exit
-	groupx.nbcounts	**required**		Output from Step 1, containing the simulated fragments counts following Negetive Binomial ditribution. 
-	AS-genes.list	**required**		Output from Step 1, containing the differentially AS genes.
-	path-to-myPara.par	**required**	Absoluate path for the file myPara.par.
-	out-prefix	**required**	Common prefix for all output files. E.g., control_1_1.fq, control_1.bed...
+	groupx.nbcounts		**required**		Output from Step 1, containing the simulated fragments counts following Negetive Binomial ditribution. 
+	AS-genes.list		**required**		Output from Step 1, containing the differentially AS genes.
+	path-to-myPara.par	**required**		Absoluate path for the file myPara.par.
+	out-prefix		**required**		Common prefix for all output files. E.g., control_1_1.fq, control_1.bed...
+	-p PALT, --percent-alt=PALT	**optional**			The percentage of signal coming from alternate splice forms. Default is 0.2
 
-	-p PALT, --percent-alt=PALT			The percentage of signal coming from alternate splice forms. Default is 0.2
-
-	-c COVERAGE, --mean-base-coverage=COVERAGE			Mean base coverage. Default is 25
+	-c COVERAGE, --mean-base-coverage=COVERAGE		**optional**		Mean base coverage. Default is 25
 
 Copy right: Ruolin Liu, ISU
 
