@@ -40,7 +40,7 @@ AS-genes.list contains the simulated AS genes.
 
 Usage: 
 
-	python generate_rnaseq.py	groupx.nbcounts 	AS-genes.list 	path-to-myPara.par 	out-prefix 	[-p 0.2]	[-c 25]
+	python generate_rnaseq.py	groupx.nbcounts	AS-genes.list 	path-to-myPara.par 	out-prefix 	[-p 0.2]	[-c 25]
 
 Options:
 
