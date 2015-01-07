@@ -12,7 +12,7 @@ One group represents control group; the other is for experiment group. Scripts a
 
 usage: 
 
-	cal_NB_counts.py [-h]	<annotation.gff3> 	**-g1** c1.sam c2.sam 	**-g2** t1.sam t2.sam 	[-n 3] 	[-l 2000] 	[-m AS-genes]
+	cal_NB_counts.py [-h]	<annotation.gff3>	-g1	c1.sam c2.sam 	-g2	t1.sam t2.sam 	[-n 3] 	[-l 2000] 	[-m AS-genes]
 
 
 Options:
@@ -38,7 +38,9 @@ AS-genes.list contains the simulated AS genes.
 
 ####Step2: Simulate differentail alternative splicing for each of the two groups individually. 
 
-Usage: python generate_rnaseq.py	groupx.nbcounts 	AS-genes.list 	path-to-myPara.par 	out-prefix 	-p 0.2	-c 25
+Usage: 
+
+	python generate_rnaseq.py	groupx.nbcounts 	AS-genes.list 	path-to-myPara.par 	out-prefix 	[-p 0.2]	[-c 25]
 
 Options:
 
