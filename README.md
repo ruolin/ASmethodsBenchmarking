@@ -16,16 +16,16 @@ usage: cal_NB_counts.py [-h]	<annotation.gff3> 	**-g1** control.1.sam control.2.
 Options:
 
 	-h, --help            show this help message and exit
-	annotation.gff3						**required**	gene annotation file in GFF3 format.
-	-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]	**required**		First group sam files separated by space.
+	annotation.gff3		**required**	gene annotation file in GFF3 format.
+	-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]	**required**	First group sam files separated by space.
 
-	-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]	**required**		Second group sam files separated by space.
+	-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]	**required**	Second group sam files separated by space.
 
-	-n NREPS, --num-reps NREPS				**optional**		Number of replicates. Default is 3.
+	-n NREPS, --num-reps NREPS	**optional**	Number of replicates. Default is 3.
 
-	-l NTARG, --num-target-gene NTARG			**optional**		Number of AS genes. Default is 2000.
+	-l NTARG, --num-target-gene NTARG	**optional**	Number of AS genes. Default is 2000.
 
-	-m {AS-genes,all-genes}, --mode {AS-genes,all-genes}	**optional**			Choose between AS-genes or all-genes: AS-genes simulates annotated AS genes only; all_genes simulates all genes in annotation.
+	-m {AS-genes,all-genes}, --mode {AS-genes,all-genes}	**optional**	Choose between AS-genes or all-genes: AS-genes simulates annotated AS genes only; all_genes simulates all genes in annotation.
 
 ####Output from setp 1
 group1.nbcounts and group2.nbcounts: simulated NB fragment counts.
