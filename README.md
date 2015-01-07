@@ -53,7 +53,7 @@ Options:
 	-h, --help            show this help message and exit
 	groupx.nbcounts		**required**		Output from Step 1, containing the simulated fragments counts following Negative Binomial distribution. 
 	AS-genes.list		**required**		Output from Step 1, containing the differentially AS genes.
-	path-to-myPara.par	**required**		Absolute path for the file myPara.par.
+	path-to-myPara.par	**required**		Absolute path for the file myPara.par. Note that myPara.par must be under the Flux Simulator root dir.
 	out-prefix		**required**		Common prefix for all output files. E.g., control_1_1.fq, control_1.bed ...
 	-p PALT, --percent-alt=PALT	**optional**			The percentage of signal coming from alternate splice forms. Default is 0.2
 
