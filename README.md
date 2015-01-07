@@ -23,9 +23,10 @@ usage:
 
 Options:
 
-	-h, --help            show this help message and exit
+	-h, --help 	show this help message and exit
 	annotation.gff3		**required**	gene annotation file in GFF3 format.
-	-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]	**required**	First group SAM files separated by space.
+	-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]	**required**	
+	First group SAM files separated by space.
 
 	-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]	**required**	Second group SAM files separated by space.
 
