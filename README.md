@@ -7,6 +7,10 @@ More details can be found in the paper **Comparisons of computational methods fo
 4. Install numpy (python library).
 5. Install Flux Simulator. http://sammeth.net/confluence/display/SIM/2+-+Download
 6. Copy myPara.par to the Flux Simulator root directory.
+7. Edit myPara.par file for the first two arguments (for details please see Flux Simulator page)
+  1. REF_FILE_NAME indicates the location of reference gtf file.
+  2. GEN_DIR indicates the folder of reference genome. 
+8. We are sorry for that this pipeline uses annotation in gff3 format so you have to prepare both gff3 and gtf formats. 
 
 ####Step1: Generate gene-level fragment counts, following Negative Binomial distribution, for two synthetic groups based on real experimental data. 
 
@@ -42,7 +46,7 @@ AS-genes.list contains the simulated AS genes.
 
 Usage: 
 
-	python generate_rnaseq.py	groupx.nbcounts	AS-genes.list 	path-to-myPara.par 	out-prefix 	[-p 0.2]	[-c 25]
+	python	generate_rnaseq.py	groupx.nbcounts		AS-genes.list 	path-to-myPara.par 	out-prefix 	[-p 0.2]	[-c 25]
 
 Options:
 
