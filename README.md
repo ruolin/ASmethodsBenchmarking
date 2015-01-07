@@ -24,6 +24,7 @@ usage:
 Options:
 
 	-h, --help 	show this help message and exit
+	
 	annotation.gff3		**required**	
 	gene annotation file in GFF3 format.
 	
@@ -58,13 +59,24 @@ Usage:
 Options:
 
 	-h, --help            show this help message and exit
-	groupx.nbcounts		**required**		Output from Step 1, containing the simulated fragments counts following Negative Binomial distribution. 
-	AS-genes.list		**required**		Output from Step 1, containing the differentially AS genes.
-	path-to-myPara.par	**required**		Absolute path for the file myPara.par. Note that myPara.par must be under the Flux Simulator root dir.
-	out-prefix		**required**		Common prefix for all output files. E.g., control_1_1.fq, control_1.bed ...
-	-p PALT, --percent-alt=PALT	**optional**			The percentage of signal coming from alternate splice forms. Default is 0.2
+	
+	groupx.nbcounts		**required**		
+	Output from Step 1, containing the simulated fragments counts following Negative Binomial distribution. 
+	
+	AS-genes.list		**required**		
+	Output from Step 1, containing the differentially AS genes.
+	
+	path-to-myPara.par	**required**		
+	Absolute path for the file myPara.par. Note that myPara.par must be under the Flux Simulator root dir.
+	
+	out-prefix		**required**		
+	Common prefix for all output files. E.g., control_1_1.fq, control_1.bed ...
+	
+	-p PALT, --percent-alt=PALT	**optional**			
+	The percentage of signal coming from alternate splice forms. Default is 0.2
 
-	-c COVERAGE, --mean-base-coverage=COVERAGE		**optional**		Mean base coverage. Default is 25
+	-c COVERAGE, --mean-base-coverage=COVERAGE	**optional**		
+	Mean base coverage. Default is 25
 
 ####Output from step 2:
 
