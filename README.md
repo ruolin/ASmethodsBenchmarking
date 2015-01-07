@@ -29,7 +29,7 @@ Options:
 
 	-m {AS-genes,all-genes}, --mode {AS-genes,all-genes}	**optional**	Choose between AS-genes or all-genes: AS-genes simulates annotated AS genes only; all_genes simulates all genes in annotation.
 
-####Output from setp 1
+####Output from step 1
 group1.nbcounts and group2.nbcounts: simulated NB fragment counts.
 
 group1.rawcounts and group2.rawcounts: raw fragement counts for the input data.
@@ -48,10 +48,14 @@ Options:
 	groupx.nbcounts		**required**		Output from Step 1, containing the simulated fragments counts following Negetive Binomial ditribution. 
 	AS-genes.list		**required**		Output from Step 1, containing the differentially AS genes.
 	path-to-myPara.par	**required**		Absoluate path for the file myPara.par.
-	out-prefix		**required**		Common prefix for all output files. E.g., control_1_1.fq, control_1.bed...
+	out-prefix		**required**		Common prefix for all output files. E.g., control_1_1.fq, control_1.bed ...
 	-p PALT, --percent-alt=PALT	**optional**			The percentage of signal coming from alternate splice forms. Default is 0.2
 
 	-c COVERAGE, --mean-base-coverage=COVERAGE		**optional**		Mean base coverage. Default is 25
+
+####Output from step 2:
+
+Please look at Flux Simulator pages for output files from step 2.
 
 Copy right: Ruolin Liu, ISU
 
