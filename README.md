@@ -10,7 +10,9 @@
 
 One group represents control group; the other is for experiment group. Scripts accept two groups of  SAM files and output simulated gene-level fragment counts. The SAM inputs function as starting point in this pipeline and it simulate differential alternative splicing base on that. We recommend for using real data.
 
-usage: cal_NB_counts.py [-h]	<annotation.gff3> 	**-g1** control.1.sam control.2.sam 	**-g2** treat.1.sam treat.2.sam 	[-n 3] 	[-l 2000] 	[-m AS-genes]
+usage: 
+
+	cal_NB_counts.py [-h]	<annotation.gff3> 	**-g1** c1.sam c2.sam 	**-g2** t1.sam t2.sam 	[-n 3] 	[-l 2000] 	[-m AS-genes]
 
 
 Options:
