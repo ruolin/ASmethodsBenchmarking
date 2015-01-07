@@ -6,18 +6,20 @@
 5. Install Flux Simulator. http://sammeth.net/confluence/display/SIM/2+-+Download
 6. Copy myPara.par to the Flux Simulator root directory.
 
-####Step1: Generate gene-level fragment counts, following Negetive Binomial distribution, for two synthetic groups based on real experimental data. One group represents control group; the other is for experiment group. Scripts accept two groups of  SAM files and output simulated gene-level fragment counts. The SAM inputs function as starting point in this pipeline and it simulate differential alternative splicing base on that. We recommend for using real data.
+####Step1: Generate gene-level fragment counts, following Negetive Binomial distribution, for two synthetic groups based on real experimental data. 
 
-usage: cal_NB_counts.py [-h] <annotation.gff3> **-g1** control.1.sam control.2.sam **-g2** treat.1.sam treat.2.sam [-n 3] [-l 2000] [-m AS-genes]
+One group represents control group; the other is for experiment group. Scripts accept two groups of  SAM files and output simulated gene-level fragment counts. The SAM inputs function as starting point in this pipeline and it simulate differential alternative splicing base on that. We recommend for using real data.
+
+usage: cal_NB_counts.py [-h]	<annotation.gff3> 	**-g1** control.1.sam control.2.sam 	**-g2** treat.1.sam treat.2.sam 	[-n 3] 	[-l 2000] 	[-m AS-genes]
 
 
-Arguments:
+Options:
 
 	-h, --help            show this help message and exit
+	annotation.gff3	**required**	gene annotation file in GFF3 format.
+	-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]	**required**		First group sam files separated by space.
 
-	-g1 GROUP1 [GROUP1 ...], --group1 GROUP1 [GROUP1 ...]	Require		First group sam files separated by space.
-
-	-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]	Require		Second group sam files separated by space.
+	-g2 GROUP2 [GROUP2 ...], --group2 GROUP2 [GROUP2 ...]	**required**		Second group sam files separated by space.
 
 	-n NREPS, --num-reps NREPS			Number of replicates. Default is 3.
 
@@ -34,16 +36,15 @@ AS-genes.list contains the simulated AS genes.
 
 ####Step2: Simulate differentail alternative splicing for each of the two groups individually. 
 
-Usage: python generate_rnaseq.py groupx.nbcounts AS-genes.list path-to-myPara.par out-prefix [Options]
+Usage: python generate_rnaseq.py 	groupx.nbcounts 	AS-genes.list 	path-to-myPara.par 	out-prefix 	-p 0.2	-c 25
 
-Required Arguments:
-
-	groupx.nbcounts		Output from Step 1, containing the simulated fragments counts following Negetive Binomial ditribution. 
-	AS-genes.list		Output from Step 1, containing the differentially AS genes.
-path-to-myPara.par	Absoluate path for the file myPara.par.
-out-prefix	Common prefix for all output files. E.g., control_1_1.fq, control_1.bed...
 Options:
+
 	-h, --help            show this help message and exit
+	groupx.nbcounts	**required**		Output from Step 1, containing the simulated fragments counts following Negetive Binomial ditribution. 
+	AS-genes.list	**required**		Output from Step 1, containing the differentially AS genes.
+	path-to-myPara.par	**required**	Absoluate path for the file myPara.par.
+	out-prefix	**required**	Common prefix for all output files. E.g., control_1_1.fq, control_1.bed...
 
 	-p PALT, --percent-alt=PALT			The percentage of signal coming from alternate splice forms. Default is 0.2
 
