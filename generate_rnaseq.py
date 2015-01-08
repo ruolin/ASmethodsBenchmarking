@@ -18,10 +18,10 @@ Parser.add_option("-c", "--mean-base-coverage", type="int", dest="coverage", def
 )
 
 
-if len(sys.argv) == 1:
+(options,args) = Parser.parse_args()
+if len(args) != 4:
 	Parser.print_help()
 	sys.exit(1)
-(options,args) = Parser.parse_args()
 
 '''Define Global Variable'''
 (FILE_SIMU,FILE_1KAS,FILE_PAR,OUT_PREFIX) = (args[0], args[1], args[2], args[3])
