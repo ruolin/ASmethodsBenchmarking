@@ -52,7 +52,7 @@ AS-genes.list contains the simulated AS genes.
 
 ####Step2: Simulate differentially alternative splicing for each of the two groups individually. 
 
-Usage: DO NOT change the order of the required parameters. 
+Usage: DO NOT change the order of the required parameters (first four parameters). 
 
 	python	generate_rnaseq.py	groupx.nbcounts		AS-genes.list 	path-to-myPara.par 	out-prefix 	[-p 0.2]	[-c 25]
 
