@@ -1,5 +1,8 @@
 More details can be found in the paper **Comparisons of computational methods for differential alternative splicing detection using RNA-seq in plant systems** http://www.biomedcentral.com/1471-2105/15/364/
 
+###Updates:
+The ASgenes_by_event folder contains the lists of genes categorized by AS events. Those genes all have two isoforms and excatly one AS event.  
+
 ###Prerequisites:
 1. Install python 2.7+ but not 3.0+.
 2. Install rpy2 (python library).
