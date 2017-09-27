@@ -36,6 +36,7 @@ if len(sys.argv) == 1:
 
 GENE = Set(["gene", "transposable_element_gene","pseudogene"])
 EXON = Set(["exon", "pseudogenic_exon"])
+TX = Set(["transcript", "mRNA", "mrna"])
 ## parse inputs
 args = parser.parse_args()
 name_gtf = args.gene_model
@@ -78,27 +79,42 @@ def meanVar(_files, _gff_file , _output):
 	_dict_counts = dict() ## dictionary of gene counts
 	_genes = HTSeq.GenomicArrayOfSets("auto",stranded=False)
 	idx=0
-	count = 0
 	if MODE == "all-genes":
 		for feature in _gff_file:
 			if feature.type in GENE:
 				_dict_counts[ feature.name ] = [0]*NFILE
 				_genes[feature.iv] += feature.name
+			if feature.type in TX:
+                                if feature.attr["geneID"] not in _dict_counts:
+				    _dict_counts[feature.attr["geneID"]] = [0]*NFILE
+				    _genes[feature.iv] += feature.attr["geneID"]
 	if MODE == "AS-genes":
 		## Bug: Does not report last gene in gff if it has at least two transcript
 		transcript= set()
 		cur_line = None
+                last_gene_id = None
 		for feature in _gff_file:
 			if feature.type in GENE:
+                                print transcript
 				if len(transcript) >1:
 					_dict_counts[ cur_line.name ] = [0]*NFILE
 					_genes[cur_line.iv] += cur_line.name
-					count +=1
 				cur_line = feature
 				transcript.clear()
+                        if feature.type in TX:
+                            if last_gene_id == feature.attr["geneID"]: 
+                                transcript.add(feature.attr["ID"])
+                            else:
+                                if len(transcript) > 1:
+                                    if feature.attr["geneID"] not in _dict_counts:
+					_dict_counts[feature.attr["geneID"]] = [0]*NFILE
+					_genes[feature.iv] +=  feature.attr["geneID"]
+                                transcript.clear()
+                                transcript.add(feature.attr["ID"])
+                                last_gene_id = feature.attr["geneID"]
 			if feature.type in EXON:
 				transcript.add(feature.attr["Parent"])
-	print "number of genes", count
+        print "num of genes to simulate: ", len(_dict_counts) 
 	_file_raw_count = open(_output+'.rawcounts','w')
 	_file_nb_count = open(_output+'.nbcounts','w')
 	## This loop read through the input list and call countSam for each input file  
@@ -164,21 +180,19 @@ def main():
 		is_chr_sam = almnt.iv.chrom
 		break
 	for feature in gff_file:
-		set_chr_gff.add(feature.iv.chrom)
-	
+	    set_chr_gff.add(feature.iv.chrom)
 	if  is_chr_sam not in set_chr_gff:
 		sys.stderr.write("Error: Chromosome id in SAM files and GFF file does not agree!!\n")
 		sys.exit(1)
 	#####
-
-	file_gtf=open(name_gtf,'r')
-	gff_file=HTSeq.GFF_Reader(file_gtf)	
+        file_gtf=open(name_gtf,'r')
+        gff_file=HTSeq.GFF_Reader(file_gtf) 
 	counts1=meanVar(group1_f, gff_file,'group1')	
 	file_gtf.close()
 	## second group
 	group2_f = args.group2
-	file_gtf=open(name_gtf,'r')
-	gff_file=HTSeq.GFF_Reader(file_gtf)
+        file_gtf=open(name_gtf,'r')
+        gff_file=HTSeq.GFF_Reader(file_gtf) 
 	counts2=meanVar(group2_f, gff_file,'group2')
 	
 	file_gtf.close()
