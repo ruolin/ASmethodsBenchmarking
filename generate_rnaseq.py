@@ -2,6 +2,8 @@
 import sys, optparse, random,os
 from itertools import izip_longest
 import numpy as np
+from sets import Set
+import re
 import subprocess
 from math import sqrt, log
 from itertools import repeat
@@ -37,6 +39,8 @@ dup_1kAS =list() ## need to be deleted
 gene2count = dict() ## gene-to-count dictionary
 LIST_PAR = list() ## list object stores flux .par file
 
+gene = re.compile("gene_id \"(.*?)\";")
+iso = re.compile("transcript_id \"(.*?)\";")
 class JSD(object):
 
 	def KLdivergence(self, p, q):
@@ -126,30 +130,54 @@ def genPRO(_count, _file_PRO, _rep):
 	3. _rep: number of replicates simulated
 	Return total transcriptom length
 	'''
-	Flag = False
+	#Flag = False
 	global TRANSCRIPTOM 
-	if not TRANSCRIPTOM:
-		Flag =True # make sure TRANSCRIPTOM initialize only once
+	#if not TRANSCRIPTOM:
+		#Flag =True # make sure TRANSCRIPTOM initialize only once
 	total_length = 0
 	_PRO_list = list()
 	num_trans = 0
-	gene_len = 0
+	total_txs_len = 0
 	
-	## Read first line from toy.pro and close
-	f3 = open(_file_PRO,'r')
-	prev_loci=f3.readline().rstrip().split()[1].split('.')[0]
-	f3.close()
+        tx_file = None
+	for line in LIST_PAR:
+            fields = line.strip().split()
+            if fields[0] == "REF_FILE_NAME": 
+                tx_file = fields[1]
+
+        print "processing transcript gtf file: ", tx_file
+        tx_to_gene = {}
+        prev_loci = None
+        with open(tx_file, 'r') as fh:
+            for line in fh:
+                if line[0] == '#':
+                    continue
+                fields = line.strip().split("\t")
+                gret = gene.search(fields[8])
+                tret = iso.search(fields[8])
+                if not gret or not tret:
+                    sys.stderr.write("Warning: gff line '{}' does not have gene_id or transcript_id field".format(line.strip()))
+                    sys.stderr.write("\n")
+                else:
+                    g = gret.group(1)
+                    t = tret.group(1)
+                    if not prev_loci:
+                        prev_loci = g
+                    if t not in tx_to_gene:
+                        tx_to_gene[t] = g 
+        #for key,value in tx_to_gene.iteritems():
+            #print key, value
+
 	isoforms = list()
-	
 	## Update every lines from toy.pro to _PRO_list
 	with open(_file_PRO,'r') as f3:
 		for line in f3:
 			col = line.rstrip().split()
-			cur_loci = col[1].split('.')[0]
+			cur_loci = tx_to_gene[col[1]]
 			if prev_loci == cur_loci:
 				num_trans += 1
-				if Flag:
-					gene_len += int(col[3])
+				#if Flag:
+				total_txs_len += int(col[3])
 			else:
 				for i in range(len(isoforms)):
 					if prev_loci in gene2count:
@@ -162,14 +190,25 @@ def genPRO(_count, _file_PRO, _rep):
 				for each in isoforms:
 					_PRO_list.append("\t".join(str(x) for x in each)+"\n")
 				del isoforms[:]
-				if Flag:
-					TRANSCRIPTOM[prev_loci] = int(gene_len/num_trans)
-					gene_len = int(col[3])
+				#if Flag:
+				TRANSCRIPTOM[prev_loci] = int(total_txs_len/num_trans)
+				total_txs_len = int(col[3])
 				num_trans = 1
 				prev_loci = cur_loci
 			isoforms.append(col)
 		# last line
-		_PRO_list.append("\t".join(str(x) for x in each)+"\n")
+                for i in range(len(isoforms)):
+                        if prev_loci in gene2count:
+                                if prev_loci in dup_1kAS:
+                                        isoforms[i][5] = int(setAltRatio(num_trans)[i] * gene2count[prev_loci][_rep])
+                                else:
+                                        isoforms[i][5] = int(split2Frac(num_trans)[i] * gene2count[prev_loci][_rep])
+                        else:
+                                isoforms[i][5] = 0
+                for each in isoforms:
+                        _PRO_list.append("\t".join(str(x) for x in each)+"\n")
+                TRANSCRIPTOM[prev_loci] = int(total_txs_len/num_trans)
+		#_PRO_list.append("\t".join(str(x) for x in each)+"\n")
 	f3.close()
 	
 	## print every lines in _PRO_list to file
@@ -251,9 +290,10 @@ def main():
 		read_number = transcriptom_len * COVERAGE / READLEN
 		print mol_number[i]
 		file_par = genPAR(read_number, str(mol_number[i]), i)
-		print file_par
+                print "new par: ", file_par
 		### RUN FLUX to produce fastq file
 		args = [FLUX_DIR+'/bin/flux-simulator', '-lsp', file_par] 
+                print " ".join(args)
 		process_flux=subprocess.Popen(args,shell=False)
 		process_flux.wait()
 		if process_flux.returncode == 0:
