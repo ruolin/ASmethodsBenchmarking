@@ -95,23 +95,30 @@ def meanVar(_files, _gff_file , _output):
                 last_gene_id = None
 		for feature in _gff_file:
 			if feature.type in GENE:
-                                print transcript
 				if len(transcript) >1:
 					_dict_counts[ cur_line.name ] = [0]*NFILE
 					_genes[cur_line.iv] += cur_line.name
 				cur_line = feature
 				transcript.clear()
                         if feature.type in TX:
-                            if last_gene_id == feature.attr["geneID"]: 
+                            key = None
+                            if "geneID" in feature.attr:
+                                key = "geneID"
+                            elif "Parent" in feature.attr:
+                                key = "Parent"
+                            else:
+                                sys.stderr.write("transcript line does not have Parent or geneID field\n")
+
+                            if last_gene_id == feature.attr[key]: 
                                 transcript.add(feature.attr["ID"])
                             else:
                                 if len(transcript) > 1:
-                                    if feature.attr["geneID"] not in _dict_counts:
-					_dict_counts[feature.attr["geneID"]] = [0]*NFILE
-					_genes[feature.iv] +=  feature.attr["geneID"]
+                                    if feature.attr[key] not in _dict_counts:
+					_dict_counts[feature.attr[key]] = [0]*NFILE
+					_genes[feature.iv] +=  feature.attr[key]
                                 transcript.clear()
                                 transcript.add(feature.attr["ID"])
-                                last_gene_id = feature.attr["geneID"]
+                                last_gene_id = feature.attr[key]
 			if feature.type in EXON:
 				transcript.add(feature.attr["Parent"])
         print "num of genes to simulate: ", len(_dict_counts) 
@@ -151,6 +158,7 @@ def meanVar(_files, _gff_file , _output):
 	var_pred = r.predict(loess_fit, a)
 	# This loop overwrite global variable dict_counts for recoding new count data
 	count_idx = 0
+
 	for key, value in sorted(_dict_counts.iteritems()):
 		n = math.pow(list_mean[count_idx],2)/(var_pred[count_idx]-list_mean[count_idx])
 		n = int(n) # n: number of failures
@@ -207,6 +215,10 @@ def main():
 
 	num_non0 = len(non0_exp_list)
 	sys.stderr.write("randomly choose %d out of %d genes as the final target genes that are to undergo AS\n" % (NTARG,num_non0))
+        if NTARG > num_non0:
+	    sys.stderr.write("number of non zero count genes is %d, which is smaller than %d, i.e., the number of AS genes being simulated \n" % (num_non0, NTARG))
+            sys.exit(1)
+
 	l=random.sample(xrange(num_non0), NTARG)
 	out = open('AS_genes_list.txt','w')
 	for i in l:

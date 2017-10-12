@@ -12,13 +12,12 @@ Parser = optparse.OptionParser(
 	description = "group1.nbcounts and AS_genes_list are produced by cal_NB_counts.py. flux.par is the parameter file used by flux simulator.",
 	epilog =  "Copy right: Ruolin Liu, ISU"    
 	)
+
 Parser.add_option("-p", "--percent-alt", type="float", dest="palt", default = 0.2,
 	help = " The percentage of signal coming from alternate splice forms. Default is 0.2" )
 
 Parser.add_option("-c", "--mean-base-coverage", type="int", dest="coverage", default = 25,
-	help = " Mean base coverage. Default is 25"
-)
-
+	help = " Mean base coverage. Default is 25")
 
 (options,args) = Parser.parse_args()
 if len(args) != 4:
@@ -30,7 +29,6 @@ if len(args) != 4:
 FLUX_DIR = os.path.dirname(os.path.realpath(FILE_PAR))
 PALT = options.palt ## percentage of alternative isoform
 COVERAGE = options.coverage ## mean base coverage
-NREPS = 3 ## number of replicates to generate
 READLEN = 0 ## read length
 PRO_NAME = None ## flux .pro file name
 TRANSCRIPTOM = dict() ### average transcripts length for each gene
@@ -281,7 +279,7 @@ def main():
 	#for key,value in sorted(gene2count.iteritems()):
 		#if key in dup_1kAS:
 			#print key,value
-	for i in xrange(NREPS):
+	for i in xrange(len(mol_number)):
 		###each iteration generates a fastq file.
 		
 		### GENERATE .PRO FILE
